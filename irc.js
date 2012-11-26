@@ -18,11 +18,11 @@
     
     
   }
-	/**
-	* Connects to the IRC server
-	*/
-	IRC.prototype.connect = function()
-	{
+  /**
+  * Connects to the IRC server
+  */
+  IRC.prototype.connect = function()
+  {
     this._tcpClient.connect(function() {
       this._tcpClient.addResponseListener(function(data) {
         this._handleServerData(data);
