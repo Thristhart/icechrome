@@ -122,7 +122,7 @@
   }
 	
   /**
-  * Calls all the functions associated with the event
+  * Calls all the functions associated with the event. If there are no handlers, fires UNHANDLED_EVENT.
   *
   * @param {String} event The event being fired
   * @param {Object} data The data passed to the functions
@@ -135,6 +135,8 @@
       for(var i = 0; i < this._handlers[event].length; i++)
         this._handlers[event][i](data);
     }
+    else
+      this._fireEvent(UNHANDLED_EVENT, {event: event, data: data});
   }
 
   /**
