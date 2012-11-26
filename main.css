@@ -1,0 +1,31 @@
+/* COLORS! */
+/* BACKGROUND */
+body { background-color: #91cade }
+/* HIGHLIGHT */
+#output, #messageBox, #messageSend { background-color: white; border: #bfe1ea; outline: none }
+
+
+#output
+{
+	resize: none;
+	width: 90%;
+	margin: auto;
+	height: 90%;
+	display: block;
+	overflow: scroll;
+	-webkit-user-select: text; /* needed to make the div content selectable */
+}
+#input
+{
+	width: 90%;
+	margin: auto;
+	display: block;
+}
+#messageBox
+{
+	width: 93%;
+}
+#messageSend
+{
+	width: 6%;
+}
