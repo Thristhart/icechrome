@@ -1,4 +1,8 @@
 // via https://www.alien.net.au/irc/irc2numerics.html
+RPL = [];
+ERR = [];
+
+
 RPL[001] = "WELCOME";
 RPL[002] = "YOURHOST";
 RPL[003] = "CREATED";
@@ -365,4 +369,4 @@ ERR[982] = "NOLANGUAGE";
 ERR[983] = "TEXTTOOSHORT";
 ERR[999] = "NUMERIC_ERR";
 
-UNHANDLED[1000] = "EVENT";
+UNHANDLED_EVENT = 1000;
