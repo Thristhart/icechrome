@@ -1,0 +1,3 @@
+IceChrome is a Chrome Packaged App that attempts to be a fully native IRC client - no websockets or exterior server dependencies.
+
+This is accomplished via Chome's new packaged app APIs, most notably chrome.socket.
