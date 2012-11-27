@@ -4,6 +4,7 @@ function output(tab, string)
   tab.body.innerHTML += string + "<br />";
 }
 
+var networks = [];
 function connect(host, port, profile) {
   var tab = addTab(host);
   
@@ -11,6 +12,8 @@ function connect(host, port, profile) {
   client.connect();
 
   client.registerEvent("NOTICE", function(data) { output(tab, data.parameters) });
+  
+  networks.push(client);
 }
 
 function close_window()
@@ -27,5 +30,5 @@ window.onload = function()
   
   document.getElementById("closeWindow").onclick = close_window;
   
-  connect("irc.freenode.net", 6667, {nick: "thristhart", username: "thristhart", hostname: "scylla", realname: "Tom Shea"});
+  connect("irc.freenode.net", 6667, {nick: "thristhart", username: "thristhart", hostname: "scylla", realname: "Tom Shea", quit_message: "This is IceChrome's default quit message"});
 }

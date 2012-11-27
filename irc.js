@@ -63,6 +63,12 @@
     return null;
   }
   
+  IRC.prototype.quit = function(message)
+  {
+    if(!message)
+      message = this.profile.quit_message;
+    this._sendMessage("QUIT", message);
+  }
   
   /**
   * Splits a raw server message into its component lines
