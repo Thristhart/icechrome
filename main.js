@@ -9,10 +9,21 @@ function connect(host, port, profile) {
   network.client = new IRC(host, port, profile);
   network.client.connect();
 
-  network.client.registerEvent("NOTICE", function(data) { output(network.serverTab, data.parameters) });
-  network.client.registerEvent(UNHANDLED_EVENT, function(data) { output(network.serverTab, data.parameters) });
+  network.client.registerEvent("NOTICE", function(data) { notice(network, data) });
+  network.client.registerEvent("RPL_WELCOME", function(data) { notice(network, data) });
+  network.client.registerEvent("RPL_YOURHOST", function(data) { notice(network, data) });
+  network.client.registerEvent("RPL_CREATED", function(data) { notice(network, data) });
+  network.client.registerEvent("RPL_MYINFO", function(data) { });
+  network.client.registerEvent("RPL_ISUPPORT", function(data) { });
+  network.client.registerEvent("RPL_MOTD", function(data) { notice(network, data) });
+  network.client.registerEvent(UNHANDLED_EVENT, function(data) { output(network.serverTab, data.command + " " + data.parameters.join(" ")) });
   
   networks.push(network);
+}
+
+function notice(network, data)
+{
+  output(network.serverTab, "<b>" + data.parameters[data.parameters.length - 1] + "</b>");
 }
 
 function close_window()
