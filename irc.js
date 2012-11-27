@@ -45,7 +45,25 @@
     this._handlers[event].push(callback);
   }
 	
-	
+  /**
+  * Converts a given numeric IRC reply to its string equivalent
+  * 
+  * @param {Number} numeric An IRC Numeric Reply
+  * @see irc_numerics.js
+  */
+	IRC.prototype.numericToReply = function(numeric)
+  {
+    var i = parseInt(numeric);
+    if(isNaN(i))
+      return null;
+    if(RPL[i])
+      return "RPL_" + RPL[i];
+    if(ERR[i])
+      return "ERR_" + ERR[i];
+    return null;
+  }
+  
+  
   /**
   * Splits a raw server message into its component lines
   *
@@ -96,6 +114,9 @@
     }
     
     command = split_input[0];
+    var possible_reply = this.numericToReply(command);
+    if(possible_reply)
+      command = possible_reply;
     
     parameters = split_input.slice(1);
     
