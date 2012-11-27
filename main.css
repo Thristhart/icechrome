@@ -25,6 +25,10 @@ body {
   padding:
 }
 
+.error {
+  color: red;
+}
+
 .close {
   text-decoration: none;
   font-weight: bold;

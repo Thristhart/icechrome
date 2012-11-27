@@ -9,21 +9,26 @@ function connect(host, port, profile) {
   network.client = new IRC(host, port, profile);
   network.client.connect();
 
-  network.client.registerEvent("NOTICE", function(data) { notice(network, data) });
-  network.client.registerEvent("RPL_WELCOME", function(data) { notice(network, data) });
-  network.client.registerEvent("RPL_YOURHOST", function(data) { notice(network, data) });
-  network.client.registerEvent("RPL_CREATED", function(data) { notice(network, data) });
-  network.client.registerEvent("RPL_MYINFO", function(data) { });
-  network.client.registerEvent("RPL_ISUPPORT", function(data) { });
-  network.client.registerEvent("RPL_MOTD", function(data) { notice(network, data) });
-  network.client.registerEvent(UNHANDLED_EVENT, function(data) { output(network.serverTab, data.command + " " + data.parameters.join(" ")) });
+  network.client.registerEvent(UNHANDLED_EVENT, function(data) { 
+    if(data.command.substr(0, 3) == "ERR")
+      error(network, data);
+    else if(data.command.substr(0, 3) == "RPL")
+      notice(network, data);
+    else
+      print(network.serverTab, data.command + " " + data.parameters.join(" "));
+  });
   
   networks.push(network);
 }
 
 function notice(network, data)
 {
-  output(network.serverTab, "<b>" + data.parameters[data.parameters.length - 1] + "</b>");
+  print(network.serverTab, data.parameters.join(" "));
+}
+
+function error(network, data)
+{
+  output(network.serverTab, "<span class='error'>" + data.command + ": " + data.parameters.join(" "));
 }
 
 function close_window()
