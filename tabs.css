@@ -1,0 +1,45 @@
+
+#tabBar 
+{
+  margin-top:0;
+  margin-bottom:0;
+}
+#tabBar a
+{
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  
+  color: black;
+  
+  border-radius: 5px 5px 0 0;
+  margin-right: 2px;
+	display: block;
+  float: left;
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  
+  background-color: #bfe1ea;
+}
+
+.tab
+{
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+.tab:select
+{
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+}

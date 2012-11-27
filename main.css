@@ -2,18 +2,23 @@
 /* BACKGROUND */
 body { background-color: #91cade }
 /* HIGHLIGHT */
-#output, #messageBox, #messageSend { background-color: white; border: #bfe1ea; outline: none }
+#output, #messageBox, #messageSend { background-color: white; outline: none }
 #output::-webkit-scrollbar-thumb {background-color: rgba(191, 225, 234, 0.5); } /* this is #bfe1ea in rgba form, to get the alpha*/
+
+#output, #tabBar
+{
+	width: 90%;
+	margin: auto;
+  padding: 0;
+	display: block;
+}
 
 #output
 {
-	resize: none;
-	width: 90%;
-	margin: auto;
 	height: 90%;
-	display: block;
 	overflow-y: scroll;
-	-webkit-user-select: text; /* needed to make the div content selectable */
+  margin-top: 0;
+  margin-bottom: 0;
 }
 #output::-webkit-scrollbar {
   width: 12px;
@@ -26,6 +31,9 @@ body { background-color: #91cade }
 #output::-webkit-scrollbar-thumb {
   border-radius: 50px;
 }
+
+
+
 #input
 {
 	width: 90%;
