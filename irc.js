@@ -13,6 +13,7 @@
     this.profile = profile;
 
     this._handlers = {};
+    this._responses = [];
 
     this._tcpClient = new TcpClient(host, port);
     
@@ -47,6 +48,24 @@
     this._handlers[event] = this._handlers[event] || [];
     this._handlers[event].push(callback);
   }
+  
+  
+  /**
+  * Registers a one-time for a number of events (ie, possible responses to our command)
+  *
+  * @param {Array of Strings} response The event(s) to respond to
+  * @param {Function} callback The function to call when the event is fired
+  */
+  IRC.prototype.expectResponse = function(response, callback)
+  {
+    var responseObj = {};
+    if(response instanceof Array)
+      responseObj.response = response;
+    else
+      responseObj.response = [response];
+    responseObj.callback = callback;
+    this._responses.push(responseObj);
+  }
 	
   /**
   * Converts a given numeric IRC reply to its string equivalent
@@ -66,6 +85,11 @@
     return null;
   }
   
+  /**
+  * Quit
+  * 
+  * @param {String} message Your quit message (optional)
+  */
   IRC.prototype.quit = function(message)
   {
     if(!message)
@@ -141,9 +165,10 @@
     if(possible_reply)
       command = possible_reply;
     
-    parameters = split_input.slice(1);
+    target = split_input[1];
+    parameters = split_input.slice(2);
     
-    this._handleServerMessage({prefix: prefix, command: command, parameters:parameters});
+    this._handleServerMessage({prefix: prefix, command: command, target: target, parameters:parameters});
   }
 
 	
@@ -169,6 +194,15 @@
   */
   IRC.prototype._fireEvent = function(event, data)
   {
+    for(var i = 0; i < this._responses.length; i++)
+    {
+      if(this._responses[i].response.indexOf(event) != -1)
+      {
+        this._responses[i].callback({event: event, data: data});
+        this._responses.splice(i);
+        i--;
+      }
+    }
     if(this._handlers[event])
     {
       for(var i = 0; i < this._handlers[event].length; i++)
