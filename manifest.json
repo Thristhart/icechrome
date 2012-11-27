@@ -1,6 +1,6 @@
 {
 	"name": "IceChrome",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"manifest_version": 2,
 	
 	"description": "An entirely native IRC client for chrome built using the new Packaged Apps API",
