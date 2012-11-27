@@ -3,7 +3,7 @@
 body { background-color: #91cade }
 /* HIGHLIGHT */
 #output, #messageBox, #messageSend { background-color: white; border: #bfe1ea; outline: none }
-
+#output::-webkit-scrollbar-thumb {background-color: rgba(191, 225, 234, 0.5); } /* this is #bfe1ea in rgba form, to get the alpha*/
 
 #output
 {
@@ -12,8 +12,19 @@ body { background-color: #91cade }
 	margin: auto;
 	height: 90%;
 	display: block;
-	overflow: scroll;
+	overflow-y: scroll;
 	-webkit-user-select: text; /* needed to make the div content selectable */
+}
+#output::-webkit-scrollbar {
+  width: 12px;
+}
+ 
+#output::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+#output::-webkit-scrollbar-thumb {
+  border-radius: 50px;
 }
 #input
 {
