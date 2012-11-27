@@ -1,7 +1,5 @@
 function doStyleMagic()
 {
-  outputArea.onmouseover = function() {outputArea.style.overflowY = "scroll" }
-  outputArea.onmouseout = function() {outputArea.style.overflowY = "hidden" }
   
   setTimeout(function() {
     document.getElementById("titlebar").style.height = "30px";
