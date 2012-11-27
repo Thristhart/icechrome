@@ -2,6 +2,19 @@ var tabBar;
 var tabs = [];
 var selectedTab;
 
+function escape(string)
+{
+  var area = document.createElement("textarea");
+  area.innerHTML = string;
+  
+  return area.innerHTML;
+}
+
+function print(tab, string)
+{
+  output(tab, escape(string))
+}
+
 function output(tab, string)
 {
   var shouldScroll = outputArea.scrollHeight - outputArea.scrollTop < 616;
