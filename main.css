@@ -1,21 +1,47 @@
 /* COLORS! */
 /* BACKGROUND */
-body { background-color: #91cade }
+body { background-color: #91cade;}
 /* HIGHLIGHT */
 #output, #messageBox, #messageSend { background-color: white; outline: none }
 #output::-webkit-scrollbar-thumb {background-color: rgba(191, 225, 234, 0.5); } /* this is #bfe1ea in rgba form, to get the alpha*/
+#titlebar {background-color: #bfe1ea}
 
-#output, #tabBar
+body {
+  padding: 0;
+  margin: 0;
+ }
+
+#output, #tabBar, #input
 {
-	width: 90%;
+	width: 100%;
 	margin: auto;
   padding: 0;
 	display: block;
 }
 
+#titlebar {
+  -webkit-app-region: drag;
+  width: 100%;
+  padding:
+}
+
+.close {
+  text-decoration: none;
+  font-weight: bold;
+  
+  font-family: sans-serif;
+}
+#closeWindow {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  
+  -webkit-app-region: no-drag;
+}
+
 #output
 {
-	height: 90%;
+	height: 86%;
 	overflow-y: scroll;
   margin-top: 0;
   margin-bottom: 0;
@@ -32,14 +58,6 @@ body { background-color: #91cade }
   border-radius: 50px;
 }
 
-
-
-#input
-{
-	width: 90%;
-	margin: auto;
-	display: block;
-}
 #messageBox
 {
 	width: 93%;
