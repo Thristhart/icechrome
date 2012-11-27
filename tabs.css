@@ -24,6 +24,31 @@
   background-color: #bfe1ea;
 }
 
+.tab ul
+{
+  width: 12%;
+  height: 86%;
+  
+  float: left;
+  
+  margin: 0;
+  padding-left: 5px;
+  
+  list-style: none;
+  overflow: hidden;
+  
+  position: absolute;
+  
+  background-color: #bfe1ea;
+}
+.tab ul a
+{
+  text-decoration: none;
+  border-radius: 5px 0 0 5px;
+  display: block;
+  text-overflow: ellipsis;
+}
+
 .tab
 {
   height: 100%;
@@ -41,5 +66,20 @@
   display: block;
   margin: 0;
   padding: 0;
+  z-index: 2;
+}
+.subtab
+{
+  height: 100%;
+  width: 87%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  float: right;
+}
+
+.subtab:select
+{
   z-index: 2;
 }

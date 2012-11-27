@@ -1,19 +1,18 @@
 var outputArea;
-function output(tab, string)
-{
-  tab.body.innerHTML += string + "<br />";
-}
 
 var networks = [];
 function connect(host, port, profile) {
-  var tab = addTab(host);
+  var network = {};
+  network.tab = addTab(host);
+  network.serverTab = network.tab.subTabs[0];
   
-  var client = new IRC(host, port, profile);
-  client.connect();
+  network.client = new IRC(host, port, profile);
+  network.client.connect();
 
-  client.registerEvent("NOTICE", function(data) { output(tab, data.parameters) });
+  network.client.registerEvent("NOTICE", function(data) { output(network.serverTab, data.parameters) });
+  network.client.registerEvent(UNHANDLED_EVENT, function(data) { output(network.serverTab, data.parameters) });
   
-  networks.push(client);
+  networks.push(network);
 }
 
 function close_window()
