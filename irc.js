@@ -17,6 +17,9 @@
     this._tcpClient = new TcpClient(host, port);
     
     
+    this.registerEvent("PING", function() {
+      this._sendMessage("PONG", []);
+    }.bind(this));
   }
   /**
   * Connects to the IRC server
@@ -78,7 +81,19 @@
   */
   IRC.prototype._handleServerData = function(input)
   {
+    if(this._cutOffStorage)
+    {
+      input = this._cutOffStorage + input;
+      delete(this._cutOffStorage);
+    }
+    var tail = input.slice(input.length - 2);
+    if(tail != "\r\n")
+    {
+      this._cutOffStorage = input;
+      return;
+    }
     var lines = input.split("\r\n");
+    console.log(lines);
     for(var i = 0; i < lines.length; i++)
       this._parseServerMessage(lines[i]);
   }
@@ -94,6 +109,8 @@
   {
     if(input == "")
       return;
+      
+    input = input.trimLeft();
     var prefix, command, parameters;
     
     var split_input = input.split(" ");
@@ -115,7 +132,7 @@
     }
     if(trailing_location != -1)
     {
-      split_input[trailing_location] = split_input.slice(trailing_location).join(" ");
+      split_input[trailing_location] = split_input.slice(trailing_location).join(" ").slice(1);
       split_input = split_input.slice(0, trailing_location + 1);
     }
     
@@ -140,12 +157,7 @@
   {
     console.log(message.prefix + ": " + message.command + " " + message.parameters);
     
-    if(message.command == "NOTICE")
-    {
-      this._fireEvent("NOTICE", message);
-    }
-    else if(message.command == "PING")
-      this._sendMessage("PONG", []);
+    this._fireEvent(message.command, message);
   }
 	
   /**
@@ -163,7 +175,9 @@
         this._handlers[event][i](data);
     }
     else
-      this._fireEvent(UNHANDLED_EVENT, {event: event, data: data});
+    {
+      this._fireEvent(UNHANDLED_EVENT, data);
+    }
   }
 
   /**
