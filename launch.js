@@ -15,6 +15,3 @@ chrome.app.runtime.onLaunched.addListener(function()
 chrome.runtime.onInstalled.addListener(function() { 
   chrome.storage.local.set({name: "Thrist"}, function() { });
 });
-chrome.runtime.onSuspend.addListener(function() { 
-  console.log("Clean up on aisle me!");
-});
