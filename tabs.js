@@ -15,6 +15,15 @@ function print(tab, string)
   output(tab, escape(string))
 }
 
+function getSubTab(tab, title)
+{
+  for(var i = 0; i < tab.subTabs.length; i++)
+    if(tab.subTabs[i].target == title)
+      return tab.subTabs[i];
+  
+  return addSubTab(tab, title);
+}
+
 function output(tab, string)
 {
   var shouldScroll = outputArea.scrollHeight - outputArea.scrollTop < 616;
@@ -82,6 +91,7 @@ function addSubTab(tab, title)
   
   subtab.item = document.createElement("a");
   subtab.item.innerHTML = title;
+  subtab.target = title;
   subtab.item.href = "#" + subtab.body.id;
   var li = document.createElement("li");
   li.appendChild(subtab.item);
