@@ -96,6 +96,25 @@
       message = this.profile.quit_message;
     this._sendMessage("QUIT", message);
   }
+  /**
+  * Join a channel
+  * 
+  * @param {String} channel The channel to join
+  */
+  IRC.prototype.join = function(channel)
+  {
+    this._sendMessage("JOIN", channel);
+  }
+  /**
+  * Send a message
+  * 
+  * @param {String} target The person/channel to message
+  * @param {String} message The message to send
+  */
+  IRC.prototype.privmsg = function(target, message)
+  {
+    this._sendMessage("PRIVMSG", [target, message]);
+  }
   
   /**
   * Splits a raw server message into its component lines
@@ -180,7 +199,7 @@
   */
   IRC.prototype._handleServerMessage = function(message)
   {
-    console.log(message.prefix + ": " + message.command + " " + message.parameters);
+    console.log(message.prefix + ": " + message.command + " " + message.target + " " + message.parameters);
     
     this._fireEvent(message.command, message);
   }
